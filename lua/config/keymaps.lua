@@ -10,7 +10,7 @@ M = {}
 
 nnoremap("<leader>fmt", ":RustFmt <CR>")
 
-nnoremap("<leader>pv", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+nnoremap("-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 vnoremap("K", ":m '<-2<CR>gv=gv")
 vnoremap("J", ":m '>+1<CR>gv=gv")
@@ -49,25 +49,323 @@ nnoremap("<leader>cP", function()
 	vim.fn.setreg("+", vim.fn.expand("%:p"))
 end, { desc = "Copy absolute path" })
 
-function M.setup_telescope_keymaps()
-	local builtin = require("telescope.builtin")
+-- function M.setup_telescope_keymaps()
+-- local builtin = require("telescope.builtin")
+--
+-- nnoremap("<leader>ps", function()
+-- 	builtin.grep_string({ search = vim.fn.input("Grep > ") })
+-- end)
+-- nnoremap("<leader>?", builtin.oldfiles, { desc = "[?] Find recently opened files" })
+--
+-- -- nnoremap("<leader><space>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+-- nnoremap("<leader>gf", builtin.git_files, { desc = "Search [G]it [F]iles" })
+-- nnoremap("<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
+-- nnoremap("<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
+-- nnoremap("<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
+-- nnoremap("<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
+-- nnoremap("<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
+-- nnoremap("<leader>gi", builtin.lsp_implementations, { desc = "go to impl" })
+-- 	nnoremap("<leader>flt", function()
+-- 		require("telescope").extensions.flutter.commands()
+-- 	end)
+-- end
 
-	nnoremap("<leader>ps", function()
-		builtin.grep_string({ search = vim.fn.input("Grep > ") })
-	end)
-	nnoremap("<leader>?", builtin.oldfiles, { desc = "[?] Find recently opened files" })
-
-	nnoremap("<leader><space>", builtin.buffers, { desc = "[ ] Find existing buffers" })
-	nnoremap("<leader>gf", builtin.git_files, { desc = "Search [G]it [F]iles" })
-	nnoremap("<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
-	nnoremap("<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
-	nnoremap("<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
-	nnoremap("<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
-	nnoremap("<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
-	nnoremap("<leader>gi", builtin.lsp_implementations, { desc = "go to impl" })
-	nnoremap("<leader>flt", function()
-		require("telescope").extensions.flutter.commands()
-	end)
+function M.setup_snacks_keymaps()
+	return {
+		{
+			"<leader><space>",
+			function()
+				Snacks.picker.smart()
+			end,
+			desc = "Smart Find Files",
+		},
+		{
+			"<leader>/",
+			function()
+				Snacks.picker.grep()
+			end,
+			desc = "Grep",
+		},
+		{
+			"<leader>:",
+			function()
+				Snacks.picker.command_history()
+			end,
+			desc = "Command History",
+		},
+		{
+			"<leader>n",
+			function()
+				Snacks.picker.notifications()
+			end,
+			desc = "Notification History",
+		},
+		-- find
+		{
+			"<leader>fb",
+			function()
+				Snacks.picker.buffers()
+			end,
+			desc = "Buffers",
+		},
+		{
+			"<leader>fc",
+			function()
+				Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
+			end,
+			desc = "Find Config File",
+		},
+		{
+			"<leader>ff",
+			function()
+				Snacks.picker.files()
+			end,
+			desc = "Find Files",
+		},
+		{
+			"<leader>fg",
+			function()
+				Snacks.picker.git_files()
+			end,
+			desc = "Find Git Files",
+		},
+		{
+			"<leader>fp",
+			function()
+				Snacks.picker.projects()
+			end,
+			desc = "Projects",
+		},
+		{
+			"<leader>fr",
+			function()
+				Snacks.picker.recent()
+			end,
+			desc = "Recent",
+		},
+		-- Grep
+		{
+			"<leader>sb",
+			function()
+				Snacks.picker.lines()
+			end,
+			desc = "Buffer Lines",
+		},
+		{
+			"<leader>sB",
+			function()
+				Snacks.picker.grep_buffers()
+			end,
+			desc = "Grep Open Buffers",
+		},
+		{
+			"<leader>sg",
+			function()
+				Snacks.picker.grep()
+			end,
+			desc = "Grep",
+		},
+		{
+			"<leader>sw",
+			function()
+				Snacks.picker.grep_word()
+			end,
+			desc = "Visual selection or word",
+			mode = { "n", "x" },
+		},
+		-- search
+		{
+			'<leader>s"',
+			function()
+				Snacks.picker.registers()
+			end,
+			desc = "Registers",
+		},
+		{
+			"<leader>s/",
+			function()
+				Snacks.picker.search_history()
+			end,
+			desc = "Search History",
+		},
+		{
+			"<leader>sa",
+			function()
+				Snacks.picker.autocmds()
+			end,
+			desc = "Autocmds",
+		},
+		{
+			"<leader>sb",
+			function()
+				Snacks.picker.lines()
+			end,
+			desc = "Buffer Lines",
+		},
+		{
+			"<leader>sc",
+			function()
+				Snacks.picker.command_history()
+			end,
+			desc = "Command History",
+		},
+		{
+			"<leader>sC",
+			function()
+				Snacks.picker.commands()
+			end,
+			desc = "Commands",
+		},
+		{
+			"<leader>sd",
+			function()
+				Snacks.picker.diagnostics()
+			end,
+			desc = "Diagnostics",
+		},
+		{
+			"<leader>sD",
+			function()
+				Snacks.picker.diagnostics_buffer()
+			end,
+			desc = "Buffer Diagnostics",
+		},
+		{
+			"<leader>sh",
+			function()
+				Snacks.picker.help()
+			end,
+			desc = "Help Pages",
+		},
+		{
+			"<leader>sH",
+			function()
+				Snacks.picker.highlights()
+			end,
+			desc = "Highlights",
+		},
+		{
+			"<leader>si",
+			function()
+				Snacks.picker.icons()
+			end,
+			desc = "Icons",
+		},
+		{
+			"<leader>sj",
+			function()
+				Snacks.picker.jumps()
+			end,
+			desc = "Jumps",
+		},
+		{
+			"<leader>sk",
+			function()
+				Snacks.picker.keymaps()
+			end,
+			desc = "Keymaps",
+		},
+		{
+			"<leader>sl",
+			function()
+				Snacks.picker.loclist()
+			end,
+			desc = "Location List",
+		},
+		{
+			"<leader>sm",
+			function()
+				Snacks.picker.marks()
+			end,
+			desc = "Marks",
+		},
+		{
+			"<leader>sM",
+			function()
+				Snacks.picker.man()
+			end,
+			desc = "Man Pages",
+		},
+		{
+			"<leader>sp",
+			function()
+				Snacks.picker.lazy()
+			end,
+			desc = "Search for Plugin Spec",
+		},
+		{
+			"<leader>sq",
+			function()
+				Snacks.picker.qflist()
+			end,
+			desc = "Quickfix List",
+		},
+		{
+			"<leader>sR",
+			function()
+				Snacks.picker.resume()
+			end,
+			desc = "Resume",
+		},
+		{
+			"<leader>su",
+			function()
+				Snacks.picker.undo()
+			end,
+			desc = "Undo History",
+		},
+		-- LSP
+		{
+			"gd",
+			function()
+				Snacks.picker.lsp_definitions()
+			end,
+			desc = "Goto Definition",
+		},
+		{
+			"gD",
+			function()
+				Snacks.picker.lsp_declarations()
+			end,
+			desc = "Goto Declaration",
+		},
+		{
+			"gr",
+			function()
+				Snacks.picker.lsp_references()
+			end,
+			nowait = true,
+			desc = "References",
+		},
+		{
+			"gI",
+			function()
+				Snacks.picker.lsp_implementations()
+			end,
+			desc = "Goto Implementation",
+		},
+		{
+			"gy",
+			function()
+				Snacks.picker.lsp_type_definitions()
+			end,
+			desc = "Goto T[y]pe Definition",
+		},
+		{
+			"<leader>ss",
+			function()
+				Snacks.picker.lsp_symbols()
+			end,
+			desc = "LSP Symbols",
+		},
+		{
+			"<leader>sS",
+			function()
+				Snacks.picker.lsp_workspace_symbols()
+			end,
+			desc = "LSP Workspace Symbols",
+		},
+	}
 end
 
 function M.setup_neogit_keymaps()
@@ -353,9 +651,6 @@ end
 
 function M.setup_lsp_autocmd_keymaps(event)
 	local opts = { buffer = event.buf }
-	vim.keymap.set("n", "gd", function()
-		require("telescope.builtin").lsp_definitions()
-	end, opts)
 	vim.keymap.set("n", "<leader>fo", function()
 		vim.lsp.buf.format()
 	end, opts)
@@ -378,13 +673,6 @@ function M.setup_lsp_autocmd_keymaps(event)
 		vim.lsp.buf.code_action()
 	end, opts)
 	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-
-	vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, opts)
-	vim.keymap.set("n", "<leader>ds", require("telescope.builtin").lsp_document_symbols, opts)
-	vim.keymap.set("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, opts)
-	vim.keymap.set("i", "<C-h>", function()
-		vim.lsp.buf.signature_help()
-	end, opts)
 end
 
 function M.setup_trouble_keymaps()
@@ -423,6 +711,7 @@ function M.setup_trouble_keymaps()
 end
 
 function M.setup_kulala_keymaps()
+	local ft = { "http", "rest" }
 	return {
 		{
 			"<leader>rr",
@@ -430,6 +719,7 @@ function M.setup_kulala_keymaps()
 				require("kulala").run()
 			end,
 			desc = "Send request",
+			ft = ft,
 		},
 		{
 			"<leader>rR",
@@ -437,6 +727,15 @@ function M.setup_kulala_keymaps()
 				require("kulala").replay()
 			end,
 			desc = "reply request",
+			ft = ft,
+		},
+		{
+			"<leader>Rg",
+			function()
+				require("kulala").download_graphql_schema()
+			end,
+			desc = "download GQL schema",
+			ft = ft,
 		},
 	}
 end
