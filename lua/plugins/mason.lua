@@ -1,22 +1,12 @@
 local PACKAGES = {
 	-- LSP
-	"angular-language-server",
-	"ansible-language-server",
-	"css-lsp",
-	"cssmodules-language-server",
-	"css-variables-language-server",
 	"dockerfile-language-server",
-	"emmet-language-server",
-	"harper-ls",
 	"html-lsp",
 	"json-lsp",
 	"lua-language-server",
 	"pyright",
 	"typescript-language-server",
 	"yaml-language-server",
-	-- DAP
-	"codelldb",
-	"js-debug-adapter",
 	-- Format
 	"black",
 	"flake8",
@@ -25,7 +15,8 @@ local PACKAGES = {
 	-- Lint
 	"eslint-lsp",
 	"pylint",
-    "rust-analyzer",
+	"rust-analyzer@2026-02-02",
+	"kulala-fmt",
 }
 
 local function install(pack, version)
