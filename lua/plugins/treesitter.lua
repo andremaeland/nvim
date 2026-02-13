@@ -3,16 +3,22 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		event = "VeryLazy",
 		build = ":TSUpdate",
-		config = function()
-			local treesitter = require("nvim-treesitter")
-
-			treesitter.setup({
-				ensure_installed = { "diff", "regex", "markdown_inline", "lua", "vim", "vimdoc", "http" },
-				sync_install = true,
-				highlight = { enable = true },
-				indent = { enable = true },
-			})
-		end,
+		opts = {
+			ensure_installed = { "diff", "regex", "markdown_inline", "lua", "vim", "vimdoc" },
+			sync_install = true,
+			highlight = { enable = true },
+			indent = { enable = true },
+		},
+		-- config = function()
+		--     local treesitter = require("nvim-treesitter")
+		--
+		--     treesitter.setup({
+		--         ensure_installed = { "diff", "regex", "markdown_inline", "lua", "vim", "vimdoc", "http" },
+		--         sync_install = true,
+		--         highlight = { enable = true },
+		--         indent = { enable = true },
+		--     })
+		-- end,
 	},
 
 	{
